@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Accepted Admissions</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f9;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 { color: #2e7d32; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+    }
+    th, td {
+      padding: 10px;
+      border: 1px solid #ddd;
+      text-align: center;
+    }
+    th { background: #e0f2f1; }
+    button {
+      padding: 6px 10px;
+      border: none;
+      border-radius: 4px;
+      background: #f44336;
+      color: white;
+      cursor: pointer;
+    }
+    a { text-decoration: none; color: #2196f3; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <a href="./index.html">⬅ Back</a>
+  <h1>Accepted Admission Details</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>Sr.No</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Mobile</th>
+        <th>Course</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody id="dataBody"></tbody>
+  </table>
+
+  <form id="editForm" style="display:none; margin-top:20px;">
+    <h3>Edit Accepted Admission</h3>
+    <label>Name:</label>
+    <input id="editName" required>
+    <label>Email:</label>
+    <input id="editEmail" type="email" required>
+    <label>Mobile:</label>
+    <input id="editMobile" type="tel" required pattern="[0-9]{10}">
+    <label>Course:</label>
+    <input id="editCourse" required>
+    <button type="submit">Update</button>
+    <button type="button" id="cancelEdit">Cancel</button>
+  </form>
+
+  <script>
+    let acceptedData = JSON.parse(localStorage.getItem("accepted-form")) || [];
+    const dataBody = document.getElementById("dataBody");
+    let editIndex = null;
+
+    function displayData() {
+      dataBody.innerHTML = "";
+      acceptedData.forEach((item, index) => {
+        let row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${index + 1}</td>
+          <td>${item.name}</td>
+          <td>${item.email}</td>
+          <td>${item.mobile || ""}</td>
+          <td>${item.course}</td>
+          <td>${item.status}</td>
+          <td>
+            <button onclick="deleteRow(${index})">Delete</button>
+            <button onclick="startEdit(${index})">Edit</button>
+          </td>
+        `;
+        dataBody.appendChild(row);
+      });
+    }
+
+    function deleteRow(index) {
+      acceptedData.splice(index, 1);
+      localStorage.setItem("accepted-form", JSON.stringify(acceptedData));
+      displayData();
+    }
+
+    window.startEdit = function(index) {
+      editIndex = index;
+      const user = acceptedData[index];
+      document.getElementById('editName').value = user.name;
+      document.getElementById('editEmail').value = user.email;
+      document.getElementById('editMobile').value = user.mobile;
+      document.getElementById('editCourse').value = user.course;
+      document.getElementById('editForm').style.display = 'block';
+      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+    };
+
+    document.getElementById('editForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      if (editIndex !== null) {
+        acceptedData[editIndex] = {
+          ...acceptedData[editIndex],
+          name: document.getElementById('editName').value,
+          email: document.getElementById('editEmail').value,
+          mobile: document.getElementById('editMobile').value,
+          course: document.getElementById('editCourse').value
+        };
+        localStorage.setItem("accepted-form", JSON.stringify(acceptedData));
+        displayData();
+        editIndex = null;
+        document.getElementById('editForm').style.display = 'none';
+      }
+    });
+
+    document.getElementById('cancelEdit').onclick = function() {
+      editIndex = null;
+      document.getElementById('editForm').style.display = 'none';
+    };
+
+    displayData();
+  </script>
+</body>
+</html>

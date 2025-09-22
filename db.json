@@ -1,0 +1,57 @@
+{
+  "pending": [
+    {
+      "id": "d2a8"
+    },
+    {
+      "id": 1,
+      "name": "Maneesha",
+      "email": "maneesha7386@gmail.com",
+      "mobile": "7386565014",
+      "course": "Web Development",
+      "status": "Pending"
+    },
+    {
+      "id": 2,
+      "name": "lkjhghjkl",
+      "email": "maneesha7386@gmail.com",
+      "mobile": "8796546789",
+      "course": "Web Development",
+      "status": "Pending"
+    },
+    {
+      "id": 3,
+      "name": "lkjhghjkl",
+      "email": "maneesha7386@gmail.com",
+      "mobile": "8796546789",
+      "course": "Data Science",
+      "status": "Pending"
+    }
+  ],
+  "accepted": [
+    {
+      "id": "1f76"
+    },
+    {
+      "id": 1,
+      "name": "Maneesha",
+      "email": "maneesha7386@gmail.com",
+      "mobile": "7386565014",
+      "course": "Web Development",
+      "status": "Accepted"
+    }
+  ],
+  "rejected": [
+    {
+      "id": "aeb1"
+    },
+    {
+      "id": 1,
+      "name": "lkjhghjkl",
+      "email": "maneesha7386@gmail.com",
+      "mobile": "8796546789",
+      "course": "Web Development",
+      "status": "Rejected"
+    }
+  ]
+}

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rejected Admissions</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f9;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 { color: #c62828; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+    }
+    th, td {
+      padding: 10px;
+      border: 1px solid #ddd;
+      text-align: center;
+    }
+    th { background: #ffebee; }
+    button {
+      padding: 6px 10px;
+      border: none;
+      border-radius: 4px;
+      background: #f44336;
+      color: white;
+      cursor: pointer;
+    }
+    a { text-decoration: none; color: #2196f3; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <a href="./index.html">⬅ Back</a>
+  <h1>Rejected Admission Details</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>Sr.No</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Mobile</th>
+        <th>Course</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody id="dataBody"></tbody>
+  </table>
+
+  <script>
+    let rejectedData = JSON.parse(localStorage.getItem("rejected-form")) || [];
+    const dataBody = document.getElementById("dataBody");
+
+    function displayData() {
+      dataBody.innerHTML = "";
+      rejectedData.forEach((item, index) => {
+        let row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${index + 1}</td>
+          <td>${item.name}</td>
+          <td>${item.email}</td>
+          <td>${item.mobile || ""}</td>
+          <td>${item.course}</td>
+          <td>${item.status}</td>
+          <td>
+            <button onclick="deleteRow(${index})">Delete</button>
+          </td>
+        `;
+        dataBody.appendChild(row);
+      });
+    }
+
+    function deleteRow(index) {
+      rejectedData.splice(index, 1);
+      localStorage.setItem("rejected-form", JSON.stringify(rejectedData));
+      displayData();
+    }
+
+    displayData();
+  </script>
+</body>
+</html>
