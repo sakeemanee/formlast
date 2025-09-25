@@ -1,11 +1,6 @@
-
-
 const PENDING_KEY = 'userDetails';
 const ACCEPTED_KEY = 'accepted-form';
 const REJECTED_KEY = 'rejected-form';
-
-// Replace with your actual Render JSON Server URL
-const API_BASE = 'https://jsonbdsikfbasf.onrender.com';
 
 let allUserData = JSON.parse(localStorage.getItem(PENDING_KEY)) || [];
 const signupForm = document.getElementById('signupForm');
@@ -22,7 +17,7 @@ function updateTotal() {
 
 // Helper to get next serial id from db.json
 async function getNextId(endpoint) {
-  const res = await fetch(`${API_BASE}/${endpoint}`);
+  const res = await fetch(`https://maneesha-clone.onrender.com/${endpoint}`);
   const data = await res.json();
   if (!Array.isArray(data)) return 1;
   const ids = data.map(item => item.id).filter(id => typeof id === 'number');
@@ -31,7 +26,7 @@ async function getNextId(endpoint) {
 
 // Save to db.json
 async function saveToDbJson(endpoint, user) {
-  await fetch(`${API_BASE}/${endpoint}`, {
+  await fetch(`https://maneesha-clone.onrender.com/${endpoint}`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(user)
@@ -149,9 +144,9 @@ signupForm.addEventListener('submit', async function(e) {
     displayData();
     alert('Form updated successfully!');
 
-    // PATCH to db.json (JSON Server on Render)
+    // PATCH to db.json (JSON Server)
     try {
-      await fetch(`${API_BASE}/pending/${updatedUser.id}`, {
+      await fetch(`https://maneesha-clone.onrender.com/pending/${updatedUser.id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(updatedUser)
@@ -176,5 +171,3 @@ signupForm.addEventListener('submit', async function(e) {
 
 // initial render
 displayData();
-
-
