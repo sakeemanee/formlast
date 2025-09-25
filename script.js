@@ -17,7 +17,7 @@ function updateTotal() {
 
 // Helper to get next serial id from db.json
 async function getNextId(endpoint) {
-  const res = await fetch(`https://package-json-y3gd.onrender.com${endpoint}`);
+  const res = await fetch(`https://package-json-y3gd.onrender.com/${endpoint}`);
   const data = await res.json();
   if (!Array.isArray(data)) return 1;
   const ids = data.map(item => item.id).filter(id => typeof id === 'number');
@@ -26,7 +26,7 @@ async function getNextId(endpoint) {
 
 // Save to db.json
 async function saveToDbJson(endpoint, user) {
-  await fetch(`http://localhost:3001/${endpoint}`, {
+  await fetch(`https://package-json-y3gd.onrender.com/${endpoint}`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(user)
@@ -146,7 +146,7 @@ signupForm.addEventListener('submit', async function(e) {
 
     // PATCH to db.json (JSON Server)
     try {
-      await fetch(`http://localhost:3001/pending/${updatedUser.id}`, {
+      await fetch(`https://package-json-y3gd.onrender.com${updatedUser.id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(updatedUser)
@@ -170,4 +170,5 @@ signupForm.addEventListener('submit', async function(e) {
 });
 
 // initial render
+
 displayData();
