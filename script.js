@@ -17,7 +17,7 @@ function updateTotal() {
 
 // Helper to get next serial id from db.json
 async function getNextId(endpoint) {
-  const res = await fetch(`http://localhost:3001/${endpoint}`);
+  const res = await fetch(`https://package-json-y3gd.onrender.com${endpoint}`);
   const data = await res.json();
   if (!Array.isArray(data)) return 1;
   const ids = data.map(item => item.id).filter(id => typeof id === 'number');
